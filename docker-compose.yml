@@ -1,0 +1,36 @@
+version: '3.8'
+
+networks:
+  abra-nft:
+    external: true
+
+services:    
+  abra-nft-nodejs:
+    image: 'node:16'
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    container_name: abra-nft-nodejs
+    volumes:
+      - ./:/app
+    env_file:
+        - .env
+    working_dir: /app
+    command: npx nodemon --config nodemon.json
+    networks:
+      - abra-nft
+    links: 
+      - abra-nft-postgres
+
+  abra-nft-postgres:
+    container_name: abra-nft-postgres
+    image: postgres:12
+    environment:
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_USER: ${PG_SUPERUSER_NAME}
+      POSTGRES_PASSWORD: ${PG_SUPERUSER_PASSWORD}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+    networks:
+      - abra-nft

@@ -1,0 +1,775 @@
+[{
+    "inputs": [{
+        "internalType": "contract IBentoBoxV1",
+        "name": "bentoBox_",
+        "type": "address"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "newFeeTo",
+        "type": "address"
+    }],
+    "name": "LogFeeTo",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "lender",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "indexed": false,
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }],
+    "name": "LogLend",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+    }],
+    "name": "LogRemoveCollateral",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }],
+    "name": "LogRepay",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "indexed": false,
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }],
+    "name": "LogRequestLoan",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "indexed": false,
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }],
+    "name": "LogUpdateLoanParams",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "feeTo",
+        "type": "address"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "feeShare",
+        "type": "uint256"
+    }],
+    "name": "LogWithdrawFees",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+    }],
+    "name": "OwnershipTransferred",
+    "type": "event"
+}, {
+    "inputs": [],
+    "name": "DOMAIN_SEPARATOR",
+    "outputs": [{
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "asset",
+    "outputs": [{
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "bentoBox",
+    "outputs": [{
+        "internalType": "contract IBentoBoxV1",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "principal",
+        "type": "uint256"
+    }, {
+        "internalType": "uint64",
+        "name": "t",
+        "type": "uint64"
+    }, {
+        "internalType": "uint16",
+        "name": "aprBPS",
+        "type": "uint16"
+    }],
+    "name": "calculateInterest",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "interest",
+        "type": "uint256"
+    }],
+    "stateMutability": "pure",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "claimOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "collateral",
+    "outputs": [{
+        "internalType": "contract IERC721",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint8[]",
+        "name": "actions",
+        "type": "uint8[]"
+    }, {
+        "internalType": "uint256[]",
+        "name": "values",
+        "type": "uint256[]"
+    }, {
+        "internalType": "bytes[]",
+        "name": "datas",
+        "type": "bytes[]"
+    }],
+    "name": "cook",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "value1",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "value2",
+        "type": "uint256"
+    }],
+    "stateMutability": "payable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "name": "currentBatchIds",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "feeTo",
+    "outputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "feesEarnedShare",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+    }, {
+        "internalType": "contract INFTSeller",
+        "name": "seller",
+        "type": "address"
+    }, {
+        "internalType": "address",
+        "name": "excessRecipient",
+        "type": "address"
+    }, {
+        "internalType": "bool",
+        "name": "skimShortage",
+        "type": "bool"
+    }],
+    "name": "flashRepay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "internalType": "address",
+        "name": "lender",
+        "type": "address"
+    }, {
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }, {
+        "internalType": "bool",
+        "name": "anyTokenId",
+        "type": "bool"
+    }, {
+        "components": [{
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+        }, {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+        }, {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+        }, {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+        }],
+        "internalType": "struct SignatureParams",
+        "name": "signature",
+        "type": "tuple"
+    }, {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+    }, {
+        "internalType": "contract INFTBuyer",
+        "name": "buyer",
+        "type": "address"
+    }, {
+        "internalType": "bool",
+        "name": "skimShortage",
+        "type": "bool"
+    }],
+    "name": "flashRequestAndBorrow",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+    }],
+    "name": "init",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "internalType": "struct TokenLoanParams",
+        "name": "accepted",
+        "type": "tuple"
+    }, {
+        "internalType": "bool",
+        "name": "skim",
+        "type": "bool"
+    }],
+    "name": "lend",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "masterContract",
+    "outputs": [{
+        "internalType": "contract NFTPair",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "pendingOwner",
+    "outputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+    }],
+    "name": "removeCollateral",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "principal",
+        "type": "uint256"
+    }, {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+    }, {
+        "internalType": "bool",
+        "name": "skim",
+        "type": "bool"
+    }],
+    "name": "repay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "internalType": "address",
+        "name": "lender",
+        "type": "address"
+    }, {
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }, {
+        "internalType": "bool",
+        "name": "skimCollateral",
+        "type": "bool"
+    }, {
+        "internalType": "bool",
+        "name": "anyTokenId",
+        "type": "bool"
+    }, {
+        "components": [{
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+        }, {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+        }, {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+        }, {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+        }],
+        "internalType": "struct SignatureParams",
+        "name": "signature",
+        "type": "tuple"
+    }],
+    "name": "requestAndBorrow",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }, {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+    }, {
+        "internalType": "bool",
+        "name": "skim",
+        "type": "bool"
+    }],
+    "name": "requestLoan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "newFeeTo",
+        "type": "address"
+    }],
+    "name": "setFeeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }, {
+        "internalType": "bool",
+        "name": "skimFunds",
+        "type": "bool"
+    }, {
+        "components": [{
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+        }, {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+        }, {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+        }, {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+        }],
+        "internalType": "struct SignatureParams",
+        "name": "signature",
+        "type": "tuple"
+    }],
+    "name": "takeCollateralAndLend",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "name": "tokenLoan",
+    "outputs": [{
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+    }, {
+        "internalType": "address",
+        "name": "lender",
+        "type": "address"
+    }, {
+        "internalType": "uint64",
+        "name": "startTime",
+        "type": "uint64"
+    }, {
+        "internalType": "uint8",
+        "name": "status",
+        "type": "uint8"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "name": "tokenLoanParams",
+    "outputs": [{
+        "internalType": "uint128",
+        "name": "valuation",
+        "type": "uint128"
+    }, {
+        "internalType": "uint64",
+        "name": "duration",
+        "type": "uint64"
+    }, {
+        "internalType": "uint16",
+        "name": "annualInterestBPS",
+        "type": "uint16"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+    }, {
+        "internalType": "bool",
+        "name": "direct",
+        "type": "bool"
+    }, {
+        "internalType": "bool",
+        "name": "renounce",
+        "type": "bool"
+    }],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+    }, {
+        "components": [{
+            "internalType": "uint128",
+            "name": "valuation",
+            "type": "uint128"
+        }, {
+            "internalType": "uint64",
+            "name": "duration",
+            "type": "uint64"
+        }, {
+            "internalType": "uint16",
+            "name": "annualInterestBPS",
+            "type": "uint16"
+        }],
+        "internalType": "struct TokenLoanParams",
+        "name": "params",
+        "type": "tuple"
+    }],
+    "name": "updateLoanParams",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "withdrawFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}]
