@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsNumber, IsOptional } from 'class-validator';
 
-import { availableNetworks, Networks } from '../../blockchain/constants';
+import { availableNetworks, Networks } from '../modules/blockchain/constants';
 
 export class FiltersDto {
     @ApiProperty({

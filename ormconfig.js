@@ -7,11 +7,11 @@ const options = {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: ['./*/dao/*', './src/*/dao/*'],
+    entities: ['./common/db/*/dao/*', './src/common/db/*/dao/*'],
     autoLoadEntities: false,
     logging: process.env.DB_ENABLE_LOGGING !== '0' || false,
     namingStrategy: new SnakeNamingStrategy(),
-    migrations: ['./**/dao/migrations/*.ts'],
+    migrations: ['./common/db/**/dao/migrations/*.ts'],
     cli: { migrationsDir: 'migrations' },
 };
 

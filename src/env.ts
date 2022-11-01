@@ -7,6 +7,10 @@ const { env } = process;
 // App
 export const APP_PORT = parseInt(env.APP_PORT);
 export const APP_VERSION = env.npm_package_version;
+const { APP_MODE } = env;
+
+export const isSyncMode = APP_MODE === 'sync';
+export const isApiMode = APP_MODE === 'api';
 
 // Logger
 export const LOG_FOLDER_PATH = join(process.cwd(), '/logs');
@@ -32,5 +36,5 @@ export const cronTimes = {
     collateral: {
         sync: CronExpression.EVERY_5_SECONDS,
         flowerPrice: CronExpression.EVERY_12_HOURS,
-    }
+    },
 };

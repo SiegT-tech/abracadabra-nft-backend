@@ -20,7 +20,7 @@ init: network-create deps-install
 network-create:
 	docker network create abra-nft || true
 deps-install:
-	docker-compose run ${nodejsContainerName} sh -c "npm install"
+	docker-compose run ${nodejsContainerName} sh -c "npm install -legacy-peer-deps"
 ## Execute shell in the already running nodejs container
 exec-nodejs-container:
 	docker-compose exec ${nodejsContainerName} sh

@@ -1,6 +1,6 @@
 import { getDomainSeparator } from './get-domain-separator';
 
-import { Networks } from '../blockchain/constants';
+import { Networks } from '../common/modules/blockchain/constants';
 
 describe('getDomainSeparator', () => {
     it('should return string', () => {

@@ -1,7 +1,7 @@
 import { ValidationError } from '@nestjs/common';
 
-import { INVALID_ARGUMENT_ERRORS } from '../exceptions/codes';
-import { InvalidArgumentException } from '../exceptions/exceptions';
+import { INVALID_ARGUMENT_ERRORS } from '../common/modules/exceptions/codes';
+import { InvalidArgumentException } from '../common/modules/exceptions/exceptions';
 
 const INVALID_ARGUMENT_ERROR_CODE = INVALID_ARGUMENT_ERRORS.INVALID_ARGUMENT.code;
 const DEFAULT_ERROR_MESSAGE = INVALID_ARGUMENT_ERRORS.INVALID_ARGUMENT.message;

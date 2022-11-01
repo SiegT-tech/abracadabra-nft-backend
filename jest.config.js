@@ -6,9 +6,10 @@ module.exports = {
     coveragePathIgnorePatterns: ['./node_modules/'],
     errorOnDeprecated: true,
     moduleFileExtensions: ['js', 'ts'],
+    moduleDirectories: ['node_modules', 'src'],
     resetMocks: false,
     testLocationInResults: true,
-    testTimeout: 600000,
+    testTimeout: 6000,
     testMatch: ['**/?(*.)+(spec|test).[tj]s?(x)'],
     testPathIgnorePatterns: ['./node_modules/'],
     moduleNameMapper: {
