@@ -12,7 +12,7 @@
         "prettier/standard",
         "prettier/@typescript-eslint"
     ],
-    "settings": {
+    "settings": {0x074e0ed136845aD1405Ba6A6e912ec781600eA09
         "import/resolver": {
             "typescript": {}
         }
