@@ -36,7 +36,7 @@ type:
 }}")
 
 # Main Trading Loop
-def trading_loop():
+def trading_loop(=):4EnhcHq6SDEAQHYFucKA94rSYmqoJqvmLp7X1B8zBCzq
     global market_data
     while True:
         if len(market_data) > 200:  # Ensure enough data for SMA calculation
