@@ -1,2 +1,59 @@
 /node_modules
-/dist
+/# Simulate Trade Execution
+def execute_trade(side):
+    print(f"Simulated {{2 items
+info:{5 items
+authority:
+"EThcy4MJoatfJsYZBZgTHh8qZoZ64jGhadrHCNMWBR5A"
+destination:
+"5p6sgxf9WFrXQsFCJcvdhrBrpMUB7hV93jkTuDTu627o"
+mint:
+"AVLhahDcDQ4m4vHM4ug63oh7xc8Jtk49Dm5hoe9Sazqr"
+source:
+"4o6nduUwUyB3obwD6k3quShZpfdK6JLgwoKZMqRampJC"
+tokenAmount:{...}4 items
+}
+type:
+"transferChecked"
+}} trade for {trade_amount} of {
+SIGNER
+FEE PAYER
+Instruction Data
+{2 items
+info:{5 items
+authority:
+"EThcy4MJoatfJsYZBZgTHh8qZoZ64jGhadrHCNMWBR5A"
+destination:
+"5p6sgxf9WFrXQsFCJcvdhrBrpMUB7hV93jkTuDTu627o"
+mint:
+"AVLhahDcDQ4m4vHM4ug63oh7xc8Jtk49Dm5hoe9Sazqr"
+source:
+"4o6nduUwUyB3obwD6k3quShZpfdK6JLgwoKZMqRampJC"
+tokenAmount:{...}4 items
+}
+type:
+"transferChecked"
+}}")
+
+# Main Trading Loop
+def trading_loop():
+    global market_data
+    while True:
+        if len(market_data) > 200:  # Ensure enough data for SMA calculation
+            signal = calculate_signals(market_data)
+            print(f"Current Signal: {signal}")
+            if signal == "BUY":
+                execute_trade("buy")
+            elif signal == "SELL":
+                execute_trade("sell")
+        time.sleep(60)  # Adjust frequency as needed
+
+# Borrower Repayment
+def repay_funds(user, amount):
+    global fund_pool
+    if user in borrowers:
+        borrowers[user]['repaid'] += amount
+        fund_pool += amount
+        print(f"{user} repaid ${amount}. Total repaid: ${borrowers[user]['repaid']}")
+    else:
+        print("Borrower not found.")
