@@ -8,7 +8,7 @@ const options = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: ['./common/db/*/dao/*', './src/common/db/*/dao/*'],
-    autoLoadEntities: false,
+    autoLoadEntities: true,
     logging: process.env.DB_ENABLE_LOGGING !== '0' || false,
     namingStrategy: new SnakeNamingStrategy(),
     migrations: ['./common/db/**/dao/migrations/*.ts'],
